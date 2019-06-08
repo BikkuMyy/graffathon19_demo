@@ -23,13 +23,10 @@ void setup() {
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
-    //fullScreen();
+    fullScreen();
     size(640, 360);
+    background(0);
 
-    // Last thing in setup; start Moonlander. This either
-    // connects to Rocket (development mode) or loads data 
-    // from 'syncdata.rocket' (player mode).
-    // Also, in player mode the music playback starts immediately.
     moonlander.start();
 }
 
@@ -37,61 +34,50 @@ void draw() {
     // Handles communication with Rocket. In player mode
     // does nothing. Must be called at the beginning of draw().
     moonlander.update();
-    background(0);
+    //background(0);
     
-    int scene = moonlander.getIntValue("scene");
+    drawMiniTriangles();
+   
+    //int scene = moonlander.getIntValue("scene");
 
-    if (scene == 1){
-      scene1();
-    } else if (scene == 2){
-      int startRow = (int) moonlander.getCurrentRow();
-      scene2();
-    } else if (scene == 3){
-      scene3();
-    }
+    //if (scene == 1){
+    //  scene1();
+    //} else if (scene == 2){
+    //  scene2();
+    //} else if (scene == 3){
+    //  scene3();
+    //}
 
-    // This shows how you can query value of a track.
-    // If track doesn't exist in Rocket, it's automatically
-    // created.
-    //double bg_red = moonlander.getValue("background_red");
-
-    // All values in Rocket are floats; however, there's 
-    // a shortcut for querying integer value (getIntValue)
-    // so you don't need to cast.
-    //int bg_green = moonlander.getIntValue("background_green");
-    //int bg_blue = moonlander.getIntValue("background_blue");
-    
-    // Use values to control anything (in this case, background color).
-    //background((int)bg_red, bg_blue, bg_green);
-     
-
-    // You can also ask current time and row from Moonlander if you
-    // want to do something custom in code based on time.
 }
 
 void scene1(){
+    background(0);
     int size = 5;
-    //int size = moonlander.getIntValue("vertex");
+    //int size = moonlander.getIntValue("size");
     int n = 5;
     //int n = moonlander.getIntValue("n")
-    float widthKerroin = 0.2;
-    float heightKerroin = 0.2;
+    float trianglesX = 0.01*width;
+    float trianglesY = 0.01*height;
+    float widthKerroin = 1 / trianglesX;
+    float heightKerroin = 1 / trianglesY;
 
-    for(float i=0; i <= 1.0; i+=widthKerroin){
-      for (float j=0; j <= 1.0; j+=heightKerroin){ 
-        drawTriangles(n, 0.2, i, j, size);
+    for(float i=0; i <= 1; i+=widthKerroin){
+      for (float j=0; j <= 1; j+=heightKerroin){ 
+        drawTriangles(n, i, j, size);
       }
     }
 }
 
 void scene2(){
-  
-  float insideRadius = (frameCount/20);
-  float outsideRadius = (frameCount/20);
+  background(0);
+  int startRow = 775;
+  int rowDelta = (int) moonlander.getCurrentRow() - startRow;
+  float insideRadius = (rowDelta/10);
+  float outsideRadius = (rowDelta/10);
   for(int i=4; i <= 40; i+=2){
     pushMatrix();
     translate(width/2, height/2);
-    rotate(frameCount / 10);
+    rotate(frameCount);
     triangleStrip(i, insideRadius, outsideRadius);
     
     insideRadius = 1.2*insideRadius;
@@ -102,6 +88,7 @@ void scene2(){
 }
 
 void scene3() {
+  background(0);
   float div = 10.0;
     float vertexRadius = width/div;
     float edgeRadius = vertexRadius/2 * tan(TWO_PI/6);
@@ -131,22 +118,22 @@ void scene3() {
     }
 }
 
-void drawTriangles(int n, float multiplier, float widthKerroin, float heightKerroin, int size){
+void drawTriangles(int n, float widthKerroin, float heightKerroin, int size){
     int x = 0;
     int y = 0;
-    float multip = 1;
-    float rotation = (frameCount / -100.0);
-    //float rotation = moonlander.getValue("rotation");
-    
+    float multip = 0.001*height ;
+    float rowCount = (float)moonlander.getCurrentRow() * 8;
+    float rotation = (sin(rowCount/ 25.0) + sin(rowCount/ -75.0));
+
     pushMatrix();
     translate(width*widthKerroin, height*heightKerroin);
     rotate(rotation);
-    for(int i=0; i < n; i++){ 
+    for(int i=0; i <= n; i++){ 
       polygon(x, y, multip*size, 3);
       fill(colors[i]);
       x+=20;
       y+=20;
-      multip += multiplier;
+      multip += 0.1;
     }
     popMatrix();
     
@@ -186,4 +173,17 @@ void triangleStrip(int sides, float outsideRadius, float insideRadius){
       angle += angleStep;
     }
     endShape();
+}
+
+void drawMiniTriangles(){
+  int startRow = 248;
+  int rowDelta = (int) moonlander.getCurrentRow() - startRow;
+  float randX = random(width);
+  float randY = random(height);
+  for(int i=0; i<=rowDelta; i++){
+    //triangle
+    polygon(randX, randY, random(width*0.1), 3);
+    //polygon(randX, randY, height*0.001+random(25), 6);
+    fill(colors[(int)random(5)]);
+  }
 }
