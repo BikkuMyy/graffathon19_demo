@@ -13,6 +13,10 @@ color c5 = #FFFF80;
 
 color[] colors = new color[]{c1, c2, c3, c4, c5};
 
+int bg_red = 0;
+int bg_green = 0;
+int bg_blue = 0;
+
 void setup() {
     // Parameters: 
     // - PApplet
@@ -38,7 +42,9 @@ void draw() {
     
     int scene = moonlander.getIntValue("scene");
 
-    if (scene == 1){
+    if (scene == 0) {
+      intro();
+    } else if (scene == 1){
       scene1();
     } else if (scene == 2){
       scene2();
@@ -205,4 +211,19 @@ void expandingCircle(){
   circle(width/2, height/2, size);
 
   
+}
+
+void intro() {
+  background(bg_red, bg_green, bg_blue);
+  boolean blink = moonlander.getIntValue("beat") == 1;
+  blinkScreen(blink);
+}
+
+void blinkScreen(boolean blink) {
+  int k = 10;
+  if(blink) {
+    bg_red =255; bg_green=255; bg_blue=255; 
+  } else {
+    bg_red -=k; bg_green-=k; bg_blue-=k; 
+  }
 }
