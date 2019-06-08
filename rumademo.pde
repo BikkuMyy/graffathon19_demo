@@ -36,19 +36,21 @@ void draw() {
     moonlander.update();
     //background(0);
     
-    int scene = moonlander.getIntValue("scene");
+    hexagonGrid();
+    
+    //int scene = moonlander.getIntValue("scene");
 
-    if (scene == 1){
-      scene1();
-    } else if (scene == 2){
-      scene2();
-    } else if (scene == 3){
-      scene3();
-    } else if (scene == 4){
-      scene4();
-    } else if (scene == 5){
-      scene5();
-    }
+    //if (scene == 1){
+    //  scene1();
+    //} else if (scene == 2){
+    //  scene2();
+    //} else if (scene == 3){
+    //  scene3();
+    //} else if (scene == 4){
+    //  scene4();
+    //} else if (scene == 5){
+    //  scene5();
+    //}
 
 }
 
@@ -205,4 +207,21 @@ void expandingCircle(){
   circle(width/2, height/2, size);
 
   
+}
+void hexagonGrid(){
+   int startRow = 136;
+   int row = (int) moonlander.getCurrentRow();
+   int x = (row - startRow)*5;
+   float max_distance = dist(0, 0, width, height);
+   if (row % 2 == 0){
+     for(int i = 0; i <= x; i += 20) {
+      for(int j = 0; j <= height; j += 20) {
+        float size = dist(x, height-j, i, j);
+        size = size/max_distance * 15;
+        polygon(i, j, size, 6);
+        fill(colors[(int)random(5)]);
+      }
+    }
+  }
+ 
 }
