@@ -58,6 +58,8 @@ void draw() {
     //scene1();
     
     scene2();
+    
+    //scene3();
 
     // You can also ask current time and row from Moonlander if you
     // want to do something custom in code based on time.
@@ -94,6 +96,36 @@ void scene2(){
   }
 }
 
+void scene3() {
+  float div = 10.0;
+    float vertexRadius = width/div;
+    float edgeRadius = vertexRadius/2 * tan(TWO_PI/6);
+    
+    float radMod = (sin(frameCount/ 20.0) + 9.0)/10.0;
+    float hPad = 1.5*vertexRadius;
+    float wPad = 2*edgeRadius;
+    
+    int k = 0;
+    
+    for(float i = 0; i < height + hPad; i+= hPad) {
+      if(k%2==0) {
+        resetMatrix();
+        
+      } else {
+       translate(edgeRadius, 0);
+      }
+      k++;
+      for (float d =0; d <= width + wPad; d+= wPad) {
+        pushMatrix();
+        translate(d, i);
+        //rotate(frameCount / 100.0);
+        polygon(0, 0, radMod*vertexRadius, 6, PI/2);  // Hexagon 
+        popMatrix();
+      }
+      
+    }
+}
+
 void drawTriangles(int n, float multiplier, float widthKerroin, float heightKerroin, int size){
     int x = 0;
     int y = 0;
@@ -115,15 +147,19 @@ void drawTriangles(int n, float multiplier, float widthKerroin, float heightKerr
     
 }
 
-void polygon(float x, float y, float radius, int npoints) {
+void polygon(float x, float y, float radius, int npoints, float sAngle) {
   float angle = TWO_PI / npoints;
   beginShape();
-  for (float a = 0; a < TWO_PI; a += angle) {
+  for (float a = sAngle; a < TWO_PI + sAngle; a += angle) {
     float sx = x + cos(a) * radius;
     float sy = y + sin(a) * radius;
     vertex(sx, sy);
   }
   endShape(CLOSE);
+}
+
+void polygon(float x, float y, float radius, int npoints) {
+  polygon(x, y, radius, npoints, 0);  
 }
 
 void triangleStrip(int sides, float outsideRadius, float insideRadius){
