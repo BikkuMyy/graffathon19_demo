@@ -226,6 +226,7 @@ void hexagonGrid(){
       }
     }
   }
+}
 
 void intro() {
   background(bg_red, bg_green, bg_blue);
