@@ -23,7 +23,7 @@ void setup() {
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
-    fullScreen();
+    //fullScreen();
     size(640, 360);
     background(0);
 
@@ -36,21 +36,27 @@ void draw() {
     moonlander.update();
     //background(0);
     
-    drawMiniTriangles();
-   
-    //int scene = moonlander.getIntValue("scene");
+    int scene = moonlander.getIntValue("scene");
 
-    //if (scene == 1){
-    //  scene1();
-    //} else if (scene == 2){
-    //  scene2();
-    //} else if (scene == 3){
-    //  scene3();
-    //}
+    if (scene == 1){
+      scene1();
+    } else if (scene == 2){
+      scene2();
+    } else if (scene == 3){
+      scene3();
+    } else if (scene == 4){
+      scene4();
+    } else if (scene == 5){
+      scene5();
+    }
 
 }
 
 void scene1(){
+  drawManyTriangles();
+}
+
+void scene2(){
     background(0);
     int size = 5;
     //int size = moonlander.getIntValue("size");
@@ -68,7 +74,7 @@ void scene1(){
     }
 }
 
-void scene2(){
+void scene3(){
   background(0);
   int startRow = 775;
   int rowDelta = (int) moonlander.getCurrentRow() - startRow;
@@ -87,7 +93,11 @@ void scene2(){
   }
 }
 
-void scene3() {
+void scene4() {
+  expandingCircle();
+}
+
+void scene5() {
   background(0);
   float div = 10.0;
     float vertexRadius = width/div;
@@ -130,7 +140,7 @@ void drawTriangles(int n, float widthKerroin, float heightKerroin, int size){
     rotate(rotation);
     for(int i=0; i <= n; i++){ 
       polygon(x, y, multip*size, 3);
-      fill(colors[i]);
+      fill(colors[i % colors.length]);
       x+=20;
       y+=20;
       multip += 0.1;
@@ -175,7 +185,7 @@ void triangleStrip(int sides, float outsideRadius, float insideRadius){
     endShape();
 }
 
-void drawMiniTriangles(){
+void drawManyTriangles(){
   int startRow = 248;
   int rowDelta = (int) moonlander.getCurrentRow() - startRow;
   float randX = random(width);
@@ -183,7 +193,16 @@ void drawMiniTriangles(){
   for(int i=0; i<=rowDelta; i++){
     //triangle
     polygon(randX, randY, random(width*0.1), 3);
-    //polygon(randX, randY, height*0.001+random(25), 6);
     fill(colors[(int)random(5)]);
   }
+}
+
+void expandingCircle(){
+  //background(0);
+  int startRow = 1384;
+  int size = ((int)moonlander.getCurrentRow() - startRow)*25;
+  fill(255);
+  circle(width/2, height/2, size);
+
+  
 }
