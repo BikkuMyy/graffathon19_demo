@@ -66,7 +66,7 @@ void scene1(){
 
 void scene2(){
   drawManyTriangles();
-}
+} 
 
 void scene3(){
     background(0);
@@ -87,20 +87,21 @@ void scene3(){
 }
 
 void scene4(){
+  int state = moonlander.getIntValue("state");
   background(0);
   int startRow = 872;
-  int rowDelta = (int) moonlander.getCurrentRow() - startRow + 50;
+  int rowDelta = (int) moonlander.getCurrentRow() - startRow + 75;
   float insideRadius = (rowDelta/10);
   float outsideRadius = (rowDelta/10);
   for(int i=4; i <= 40; i+=2){
     pushMatrix();
     translate(width/2, height/2);
-    rotate(frameCount);
+    rotate(rowDelta);
     triangleStrip(i, insideRadius, outsideRadius);
     
     insideRadius = 1.2*insideRadius;
     outsideRadius = 1.2*outsideRadius; 
-    fill(colors[i % colors.length]);
+    fill(colors[i % colors.length], state);    
     popMatrix();
   }
 }
@@ -206,7 +207,6 @@ void polygon(float x, float y, float radius, int npoints) {
 void triangleStrip(int sides, float outsideRadius, float insideRadius){
     int x = 0;
     int y = 0;
-    //int sides = moonlander.getIntValue("sides");
     float angle = 0;
     float angleStep = 180.0 / sides;
     
@@ -231,7 +231,7 @@ void drawManyTriangles(){
     drawColorfulTriangles();
   } else {
     drawBlackTriangles();
-  }
+  } 
 }
 
 void drawColorfulTriangles(){
@@ -254,10 +254,10 @@ void drawBlackTriangles(){
 }
 
 void expandingCircle(){
-  //background(0);
+  int state = moonlander.getIntValue("state");
   int startRow = 1384;
   int size = ((int)moonlander.getCurrentRow() - startRow)*width/16;
-  fill(255);
+  fill(255, state);
   circle(width/2, height/2, size);
 }
 
