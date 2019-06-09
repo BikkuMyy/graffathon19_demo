@@ -167,10 +167,11 @@ void scene6() {
         fill(colors[4]);
       } else if (state == 2) {
         fill(colors[(k%5)]);
-      } else if(state >= 3) {
+      } else if(state < 5) {
         fill(colors[((k*n + p)%5)]);
+      } else {
+        fill(colors[(k%5)], random(255));
       }
-      
       if (state >= 8) {
         float size = dist(x, height-i, d, i);
         float maxSize = radMod*vertexRadius;
