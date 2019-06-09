@@ -232,17 +232,6 @@ void drawManyTriangles(){
   } else {
     drawBlackTriangles();
   }
-  
-  //int startRow = 248;
-  //int rowDelta = (int) moonlander.getCurrentRow() - startRow;
-  //float randX = random(width);
-  //float randY = random(height);
-  //for(int i=0; i<=rowDelta; i++){
-  //  //triangle
-  //  polygon(randX, randY, random(width*0.1), 3);
-  //  //fill(colors[(int)random(5)]);
-    
-  //}
 }
 
 void drawColorfulTriangles(){
