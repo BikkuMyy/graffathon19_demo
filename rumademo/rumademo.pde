@@ -27,8 +27,8 @@ void setup() {
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
-    //fullScreen();
-    size(640, 360);
+    fullScreen();
+    //size(640, 360);
     background(0);
     noCursor();
     moonlander.start("localhost", 1338, "data/syncdata.rocket");
