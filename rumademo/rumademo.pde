@@ -23,7 +23,7 @@ void setup() {
     // - soundtrack filename (relative to sketch's folder)
     // - beats per minute in the song
     // - how many rows in Rocket correspond to one beat
-    moonlander = Moonlander.initWithSoundtrack(this, "../common/exit_the_premises_short.mp3", 128, 8);
+    moonlander = Moonlander.initWithSoundtrack(this, "music/exit_the_premises_short.mp3", 128, 8);
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
