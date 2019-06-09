@@ -113,6 +113,8 @@ void scene5() {
 }
 
 double startRow5 = -1;
+double dynStartRow = -1;
+int prevState = -1;
 
 void scene6() {
   background(0);
@@ -130,6 +132,17 @@ void scene6() {
   float radMod = (cos(4*(float)deltaRow) + 9)/10.0;
   float hPad = 1.5*vertexRadius;
   float wPad = 2*edgeRadius;
+  
+  
+ //tie speed to the width
+ if (state == 8 && prevState == 7) {
+   dynStartRow = moonlander.getCurrentTime();
+ }
+ prevState = state;
+ float dynDelta = (float)(moonlander.getCurrentTime() - dynStartRow);
+ 
+ float x = (dynDelta)*(width/2) - (width);
+ float max_distance = dist(0, 0, width, height);
   
   int k = 0;
   int p = 0;
@@ -154,13 +167,21 @@ void scene6() {
         fill(colors[4]);
       } else if (state == 2) {
         fill(colors[(k%5)]);
-        //fill(colors[(int)random(5)]); 
       } else if(state >= 3) {
         fill(colors[((k*n + p)%5)]);
       }
       
+      if (state >= 8) {
+        float size = dist(x, height-i, d, i);
+        float maxSize = radMod*vertexRadius;
+        size = min(size/max_distance * maxSize, maxSize);
+        if (d > x) {
+          polygon(0, 0, size, 6, PI/2);
+        }
+      } else {
+        polygon(0, 0, radMod*vertexRadius, 6, PI/2);
+      }
       
-      polygon(0, 0, radMod*vertexRadius, 6, PI/2);  // Hexagon 
       popMatrix();
       
       p++;
