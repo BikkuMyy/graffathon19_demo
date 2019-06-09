@@ -30,7 +30,7 @@ void setup() {
     fullScreen();
     //size(640, 360);
     background(0);
-
+    noCursor();
     moonlander.start();
 }
 
