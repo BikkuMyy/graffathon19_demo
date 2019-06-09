@@ -234,12 +234,15 @@
 		</track>
 		<track name="scene">
 			<key value="0" interpolation="0" row="0"/>
-			<key value="1" interpolation="0" row="248"/>
-			<key value="2" interpolation="0" row="512"/>
-			<key value="3" interpolation="0" row="776"/>
-			<key value="4" interpolation="0" row="1384"/>
-			<key value="5" interpolation="0" row="1424"/>
-			<key value="5" interpolation="0" row="1432"/>
+			<key value="1" interpolation="0" row="136"/>
+			<key value="2" interpolation="0" row="248"/>
+			<key value="2" interpolation="0" row="256"/>
+			<key value="3" interpolation="0" row="512"/>
+			<key value="4" interpolation="0" row="768"/>
+			<key value="4" interpolation="0" row="776"/>
+			<key value="5" interpolation="0" row="1384"/>
+			<key value="6" interpolation="0" row="1424"/>
+			<key value="6" interpolation="0" row="1432"/>
 		</track>
 		<track name="state">
 			<key value="0" interpolation="0" row="1384"/>
