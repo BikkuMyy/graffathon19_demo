@@ -109,35 +109,62 @@ void scene5() {
   expandingCircle();
 }
 
+double startRow5 = -1;
+
 void scene6() {
   background(0);
-  float div = 10.0;
-    float vertexRadius = width/div;
-    float edgeRadius = vertexRadius/2 * tan(TWO_PI/6);
+  if (startRow5 == -1) {
+    startRow5 = moonlander.getCurrentTime();
+  }
+  
+  float deltaRow = (float)(startRow5 - moonlander.getCurrentTime())/2.13;
+  
+  int state = moonlander.getIntValue("state");
+  float div = (state + 1)*10.0;
+  float vertexRadius = width/div;
+  float edgeRadius = vertexRadius/2 * tan(TWO_PI/6);
+  
+  float radMod = (cos(4*(float)deltaRow) + 9)/10.0;
+  float hPad = 1.5*vertexRadius;
+  float wPad = 2*edgeRadius;
+  
+  int k = 0;
+  int p = 0;
+  int n = 0;
+  
+  for(float i = 0; i < height + hPad; i+= hPad) {
+    if(k%2==0) {
+      resetMatrix();
+      
+    } else {
+     translate(edgeRadius, 0);
+    }
     
-    float radMod = (sin(frameCount/ 20.0) + 9.0)/10.0;
-    float hPad = 1.5*vertexRadius;
-    float wPad = 2*edgeRadius;
-    
-    int k = 0;
-    
-    for(float i = 0; i < height + hPad; i+= hPad) {
-      if(k%2==0) {
-        resetMatrix();
-        
-      } else {
-       translate(edgeRadius, 0);
-      }
-      k++;
-      for (float d =0; d <= width + wPad; d+= wPad) {
-        pushMatrix();
-        translate(d, i);
-        //rotate(frameCount / 100.0);
-        polygon(0, 0, radMod*vertexRadius, 6, PI/2);  // Hexagon 
-        popMatrix();
+    for (float d =0; d <= width + wPad; d+= wPad) {
+      pushMatrix();
+      translate(d, i);
+      if (state >= 1) {
+        rotate(-(2.0/3)*deltaRow);
       }
       
+      if(state <= 1) {
+        fill(colors[4]);
+      } else if (state == 2) {
+        fill(colors[(k%5)]);
+        //fill(colors[(int)random(5)]); 
+      } else if(state >= 3) {
+        fill(colors[((k*n + p)%5)]);
+      }
+      
+      
+      polygon(0, 0, radMod*vertexRadius, 6, PI/2);  // Hexagon 
+      popMatrix();
+      
+      p++;
     }
+    k++;
+    n = max(k, n);
+  }
 }
 
 void drawTriangles(int n, float widthKerroin, float heightKerroin, int size){
