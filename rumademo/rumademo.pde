@@ -27,8 +27,8 @@ void setup() {
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
-    fullScreen();
-    //size(640, 360);
+    //fullScreen();
+    size(640, 360);
     background(0);
     noCursor();
     moonlander.start();
@@ -88,8 +88,8 @@ void scene3(){
 
 void scene4(){
   background(0);
-  int startRow = 775;
-  int rowDelta = (int) moonlander.getCurrentRow() - startRow;
+  int startRow = 872;
+  int rowDelta = (int) moonlander.getCurrentRow() - startRow + 50;
   float insideRadius = (rowDelta/10);
   float outsideRadius = (rowDelta/10);
   for(int i=4; i <= 40; i+=2){
@@ -225,15 +225,43 @@ void triangleStrip(int sides, float outsideRadius, float insideRadius){
 }
 
 void drawManyTriangles(){
+  int row = (int) moonlander.getCurrentRow();
+  //check exact row
+  if(row >= 384){
+    drawColorfulTriangles();
+  } else {
+    drawBlackTriangles();
+  }
+  
+  //int startRow = 248;
+  //int rowDelta = (int) moonlander.getCurrentRow() - startRow;
+  //float randX = random(width);
+  //float randY = random(height);
+  //for(int i=0; i<=rowDelta; i++){
+  //  //triangle
+  //  polygon(randX, randY, random(width*0.1), 3);
+  //  //fill(colors[(int)random(5)]);
+    
+  //}
+}
+
+void drawColorfulTriangles(){
   int startRow = 248;
   int rowDelta = (int) moonlander.getCurrentRow() - startRow;
   float randX = random(width);
   float randY = random(height);
   for(int i=0; i<=rowDelta; i++){
-    //triangle
     polygon(randX, randY, random(width*0.1), 3);
     fill(colors[(int)random(5)]);
+    
   }
+}
+
+void drawBlackTriangles(){
+  float randX = random(width);
+  float randY = random(height);
+  polygon(randX, randY, random(width*0.2), 3);
+  fill(random(150), random(150));
 }
 
 void expandingCircle(){
