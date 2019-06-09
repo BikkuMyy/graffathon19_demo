@@ -27,8 +27,8 @@ void setup() {
     // moonlander = new Moonlander(this, new TimeController(4));
 
     // Other initialization code goes here.
-    //fullScreen();
-    size(640, 360);
+    fullScreen();
+    //size(640, 360);
     background(0);
 
     moonlander.start();
@@ -54,13 +54,21 @@ void draw() {
       scene4();
     } else if (scene == 5){
       scene5();
+    } else if (scene == 6){
+      scene6();
     }
 
-}void scene1(){
-  drawManyTriangles();
+}
+
+void scene1(){
+  hexagonGrid();
 }
 
 void scene2(){
+  drawManyTriangles();
+}
+
+void scene3(){
     background(0);
     int size = 5;
     //int size = moonlander.getIntValue("size");
@@ -78,7 +86,7 @@ void scene2(){
     }
 }
 
-void scene3(){
+void scene4(){
   background(0);
   int startRow = 775;
   int rowDelta = (int) moonlander.getCurrentRow() - startRow;
@@ -97,11 +105,11 @@ void scene3(){
   }
 }
 
-void scene4() {
+void scene5() {
   expandingCircle();
 }
 
-void scene5() {
+void scene6() {
   background(0);
   float div = 10.0;
     float vertexRadius = width/div;
@@ -204,17 +212,16 @@ void drawManyTriangles(){
 void expandingCircle(){
   //background(0);
   int startRow = 1384;
-  int size = ((int)moonlander.getCurrentRow() - startRow)*25;
+  int size = ((int)moonlander.getCurrentRow() - startRow)*width/16;
   fill(255);
   circle(width/2, height/2, size);
-
-  
 }
 
 void hexagonGrid(){
    int startRow = 136;
    int row = (int) moonlander.getCurrentRow();
-   int x = (row - startRow)*5;
+   //tie speed to the width
+   int x = (row - startRow)*(width/64);
    float max_distance = dist(0, 0, width, height);
    if (row % 2 == 0){
      for(int i = 0; i <= x; i += 20) {

@@ -1,29 +1,5 @@
 <sync rows="2044">
 	<tracks>
-		<track name="background_red">
-			<key value="0" interpolation="0" row="0"/>
-			<key value="0" interpolation="0" row="8"/>
-			<key value="255" interpolation="1" row="24"/>
-			<key value="0" interpolation="0" row="27"/>
-			<key value="255" interpolation="1" row="32"/>
-			<key value="0" interpolation="0" row="35"/>
-		</track>
-		<track name="background_green">
-			<key value="0" interpolation="0" row="0"/>
-			<key value="0" interpolation="0" row="8"/>
-			<key value="255" interpolation="1" row="24"/>
-			<key value="0" interpolation="0" row="27"/>
-			<key value="255" interpolation="1" row="32"/>
-			<key value="0" interpolation="0" row="35"/>
-		</track>
-		<track name="background_blue">
-			<key value="0" interpolation="0" row="0"/>
-			<key value="0" interpolation="0" row="8"/>
-			<key value="255" interpolation="1" row="24"/>
-			<key value="0" interpolation="0" row="27"/>
-			<key value="255" interpolation="1" row="32"/>
-			<key value="0" interpolation="0" row="35"/>
-		</track>
 		<track name="beat">
 			<key value="0" interpolation="0" row="0"/>
 			<key value="1" interpolation="0" row="24"/>
