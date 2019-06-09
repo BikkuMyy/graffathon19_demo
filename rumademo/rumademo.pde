@@ -88,9 +88,12 @@ void scene3(){
 
 void scene4(){
   int state = moonlander.getIntValue("state");
-  background(0);
   int startRow = 872;
-  int rowDelta = (int) moonlander.getCurrentRow() - startRow + 75;
+  int row = (int) moonlander.getCurrentRow();
+  if(row < 1152){
+      background(0);
+  } 
+  int rowDelta = row - startRow + 75;
   float insideRadius = (rowDelta/10);
   float outsideRadius = (rowDelta/10);
   for(int i=4; i <= 40; i+=2){
@@ -98,7 +101,6 @@ void scene4(){
     translate(width/2, height/2);
     rotate(rowDelta);
     triangleStrip(i, insideRadius, outsideRadius);
-    
     insideRadius = 1.2*insideRadius;
     outsideRadius = 1.2*outsideRadius; 
     fill(colors[i % colors.length], state);    
